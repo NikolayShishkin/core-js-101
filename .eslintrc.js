@@ -16,5 +16,8 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
+    "linebreak-style": 0,
+    "comma-dangle": 'off',
+    'prefer-arrow-callback': 'off'
   },
 };
