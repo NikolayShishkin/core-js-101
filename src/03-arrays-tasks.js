@@ -269,7 +269,7 @@ function propagateItemsByPositionIndex(arr) {
     return [];
   }
   let result = [];
-  arr.map(function foo(item, index) {
+  arr.map((item, index) => {
     const temp = Array(index + 1);
     temp.fill(item);
     result = result.concat(temp);
@@ -309,9 +309,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  return arr.filter(function foo(item) {
-    return typeof item === 'number' && item > 0;
-  }).length;
+  return arr.filter((item) => typeof item === 'number' && item > 0).length;
 }
 
 /**

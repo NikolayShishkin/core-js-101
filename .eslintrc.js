@@ -18,6 +18,5 @@ module.exports = {
   rules: {
     "linebreak-style": 0,
     "comma-dangle": 'off',
-    'prefer-arrow-callback': 'off'
   },
 };
