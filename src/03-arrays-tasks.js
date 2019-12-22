@@ -644,5 +644,5 @@ module.exports = {
   group,
   selectMany,
   getElementByIndexes,
-  swapHeadAndTail
+  swapHeadAndTail,
 };

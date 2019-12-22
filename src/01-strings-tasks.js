@@ -252,10 +252,10 @@ function encodeToRot13(str) {
   const table = {};
   for (let i = 0; i < 26; i += 1) {
     table[String.fromCharCode(65 + i)] = String.fromCharCode(
-      65 + ((i + 13) % 26)
+      65 + ((i + 13) % 26),
     );
     table[String.fromCharCode(97 + i)] = String.fromCharCode(
-      97 + ((i + 13) % 26)
+      97 + ((i + 13) % 26),
     );
   }
   const arr = str.split('').map((elem) => {
@@ -361,7 +361,7 @@ function getCardId(value) {
     '10♠',
     'J♠',
     'Q♠',
-    'K♠'
+    'K♠',
   ];
   return cards.indexOf(value);
 }
@@ -381,5 +381,5 @@ module.exports = {
   getRectangleString,
   encodeToRot13,
   isString,
-  getCardId
+  getCardId,
 };

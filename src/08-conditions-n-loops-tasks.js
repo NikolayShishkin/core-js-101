@@ -359,7 +359,7 @@ function isBracketsBalanced(str) {
     ['[', ']'],
     ['{', '}'],
     ['(', ')'],
-    ['<', '>']
+    ['<', '>'],
   ];
   const bracketClosureCheck = (arr, index, config) => {
     for (let j = 0; j < config.length; j += 1) {
@@ -560,5 +560,5 @@ module.exports = {
   toNaryString,
   getCommonDirectoryPath,
   getMatrixProduct,
-  evaluateTicTacToePosition
+  evaluateTicTacToePosition,
 };
