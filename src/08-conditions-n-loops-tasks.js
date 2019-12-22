@@ -252,7 +252,10 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-  return str.split('').reverse().join('');
+  return str
+    .split('')
+    .reverse()
+    .join('');
 }
 
 /**
@@ -268,7 +271,11 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-  return +num.toString().split('').reverse().join('');
+  return +num
+    .toString()
+    .split('')
+    .reverse()
+    .join('');
 }
 
 /**
@@ -309,8 +316,16 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  if (num < 10) {
+    return num;
+  }
+  const sum = num
+    .toString()
+    .split('')
+    .map((x) => +x)
+    .reduce((accumulator, item) => accumulator + item);
+  return getDigitalRoot(sum);
 }
 
 /**
@@ -334,8 +349,41 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (str.length % 2 !== 0) {
+    return false;
+  }
+  let flag = true;
+  const bracketsArray = str.split('');
+  const bracketsConfig = [
+    ['[', ']'],
+    ['{', '}'],
+    ['(', ')'],
+    ['<', '>']
+  ];
+  const bracketClosureCheck = (arr, index, config) => {
+    for (let j = 0; j < config.length; j += 1) {
+      if (config[j][0] === arr[index] && config[j][1] === arr[index + 1]) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  while (flag === true && bracketsArray.length > 1) {
+    flag = false;
+    for (let i = 0; i < bracketsArray.length - 1; i += 1) {
+      if (bracketClosureCheck(bracketsArray, i, bracketsConfig) === true) {
+        flag = true;
+        bracketsArray.splice(i, 2);
+      }
+    }
+  }
+
+  if (bracketsArray.length !== 0) {
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -374,8 +422,29 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  function checkForPresence(arr, str) {
+    for (let i = 0; i < arr.length; i += 1) {
+      if (arr[i].startsWith(str) === false) {
+        return false;
+      }
+    }
+    return true;
+  }
+  function trimPath(str) {
+    const index = str.lastIndexOf('/');
+    return str.slice(0, index + 1);
+  }
+  let commonPath = '';
+  let nextCharacter = '/';
+  while (checkForPresence(pathes, commonPath + nextCharacter)) {
+    commonPath += nextCharacter;
+    if (pathes[0].length <= commonPath.length) {
+      return trimPath(commonPath);
+    }
+    nextCharacter = pathes[0][commonPath.length];
+  }
+  return trimPath(commonPath);
 }
 
 /**
@@ -430,8 +499,48 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  function checkHorizontal(arr, side) {
+    for (let i = 0; i <= 2; i += 1) {
+      if (arr[i][0] === side && arr[i][1] === side && arr[i][2] === side) {
+        return true;
+      }
+    }
+    return false;
+  }
+  function checkVertical(arr, side) {
+    for (let i = 0; i <= 2; i += 1) {
+      if (arr[0][i] === side && arr[1][i] === side && arr[2][i] === side) {
+        return true;
+      }
+    }
+    return false;
+  }
+  function checkDiagonal(arr, side) {
+    if (arr[0][0] === side && arr[1][1] === side && arr[2][2] === side) {
+      return true;
+    }
+    if (arr[2][0] === side && arr[1][1] === side && arr[0][2] === side) {
+      return true;
+    }
+    return false;
+  }
+
+  if (
+    checkHorizontal(position, 'X')
+    || checkVertical(position, 'X')
+    || checkDiagonal(position, 'X')
+  ) {
+    return 'X';
+  }
+  if (
+    checkHorizontal(position, '0')
+    || checkVertical(position, '0')
+    || checkDiagonal(position, '0')
+  ) {
+    return '0';
+  }
+  return undefined;
 }
 
 module.exports = {
